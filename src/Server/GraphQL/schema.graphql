@@ -1,0 +1,18 @@
+type Mutation {
+  rateProvider(
+    # Provider identifier
+    id: String!
+
+    # Rating
+    rate: Float!
+  ): Boolean
+}
+
+type Provider {
+  id: String
+  name: String
+}
+
+type Query {
+  loanProvider(id: String, slug: String): Provider
+}

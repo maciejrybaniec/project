@@ -1,0 +1,11 @@
+exports[`<Main /> should render <Main /> component correctly 1`] = `
+<div
+  className="Main">
+  <nav
+    className="Navbar">
+    Navigation
+  </nav>
+  <div
+    className="Main__content" />
+</div>
+`;

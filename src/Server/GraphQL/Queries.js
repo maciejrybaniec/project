@@ -1,0 +1,29 @@
+/**
+ * GraphQL queries definition.
+ * @module Server/GraphQL/Queries
+ * @copyright (c) 2016-present maciej.rybaniec@gmail.com
+ */
+
+ import {
+   GraphQLString
+ } from 'graphql';
+
+import {
+    LoanProviderType,
+    LoanProviderModel
+} from '../Models/LoanProvider';
+
+export default {
+    loanProvider: {
+        type: LoanProviderType,
+        args: {
+            id: { type: GraphQLString },
+            slug: { type: GraphQLString }
+        },
+        resolve(root, params, options) {
+            const { id, slug } = params;
+            if (id) return LoanProviderModel.getById(id);
+            if (slug) return LoanProviderModel.getBySlug(slug);
+        }
+    }
+};

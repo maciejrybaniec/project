@@ -1,0 +1,15 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/babel-core/.*
+<PROJECT_ROOT>/node_modules/webpack/.*
+<PROJECT_ROOT>/node_modules/enzyme-matchers/.*
+<PROJECT_ROOT>/node_modules/jest-enzyme/.*
+
+[options]
+
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=src
+
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+unsafe.enable_getters_and_setters=true
+esproposal.decorators=ignore
