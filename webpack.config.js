@@ -32,7 +32,7 @@ module.exports = function createConfig() {
         cache: true,
         devtool: 'source-map',
         resolve: {
-            extensions: ['', '.js', '.jsx'],
+            extensions: ['', '.js', '.jsx', 'graphql', 'gql'],
             root: path.join(__dirname, 'src'),
         },
         node: {
@@ -43,6 +43,10 @@ module.exports = function createConfig() {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loaders: ['babel']
+            }, {
+                test: /\.(graphql|gql)$/,
+                exclude: /node_modules/,
+                loader: 'graphql-tag/loader'
             }]
         }
     };

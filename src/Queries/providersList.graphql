@@ -1,0 +1,9 @@
+fragment ProviderParts on Provider {
+    id
+}
+
+query LoanProvidersList {
+  loanProviders {
+    ...ProviderParts
+  }
+}

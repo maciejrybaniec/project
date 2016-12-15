@@ -1,0 +1,9 @@
+query LoanProvider($id: String!) {
+    loanProvider(id: $id) {
+        name
+        rating {
+            rate
+            votes
+        }
+    }
+}

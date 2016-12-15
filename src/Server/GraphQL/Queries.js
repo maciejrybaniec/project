@@ -5,7 +5,8 @@
  */
 
  import {
-   GraphQLString
+   GraphQLString,
+   GraphQLList
  } from 'graphql';
 
 import {
@@ -24,6 +25,12 @@ export default {
             const { id, slug } = params;
             if (id) return LoanProviderModel.getById(id);
             if (slug) return LoanProviderModel.getBySlug(slug);
+        }
+    },
+    loanProviders: {
+        type: new GraphQLList(LoanProviderType),
+        resolve(root, params, options) {
+            return LoanProviderModel.find().exec();
         }
     }
 };
