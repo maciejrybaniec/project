@@ -76,6 +76,22 @@ gulp.task('update:schema', (done) => {
 });
 
 /**
+ * Build bundle for front-end client.
+ */
+gulp.task('build:front-end', (done) => {
+    const webpackClientConfig = require('./webpack.config');
+    webpack(webpackClientConfig(), (error, status) => {
+        delete process.env.BABEL_ENV;
+        if (error) {
+            throw new gutil.PluginError('[build:front-end]', error);
+        } else {
+            gutil.log(`${gutil.colors.yellow('[build:front-end]')} - ${gutil.colors.green('READY')}`);
+            done();
+        }
+    });
+});
+
+/**
  * Build bundle for back-end server.
  */
 gulp.task('build:back-end', (done) => {

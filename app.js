@@ -12,7 +12,7 @@ import webpack from 'webpack';
 
 import Router from 'Server/Router';
 import { Schema } from 'Server/GraphQL/Schema';
-import config from 'Server/config';
+import config from './config';
 
 const PORT = process.env.PORT || 3008;
 const isProduction = process.env.NODE_ENV === 'production';

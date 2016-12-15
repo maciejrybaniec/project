@@ -26,6 +26,7 @@
                  <script>
                     window._STATE__ = ${JSON.stringify(appState)}
                 </script>
+                <script type="text/javascript" src="/main.js"></script>
              </body>
          </html>
      `

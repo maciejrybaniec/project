@@ -10,9 +10,11 @@
     "author": "maciej.rybaniec@gmail.com",
     "license": "ISC",
     "dependencies": {
+        "apollo-client": "^0.5.20",
         "body-parser": "^1.15.2",
         "express": "^4.14.0",
         "react": "^15.4.1",
+        "react-apollo": "^0.7.1",
         "react-dom": "^15.4.1",
         "react-redux": "^4.4.6",
         "redux": "^3.6.0"
