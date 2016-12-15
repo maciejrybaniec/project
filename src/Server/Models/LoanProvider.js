@@ -12,6 +12,8 @@ import {
     GraphQLString
 } from 'graphql';
 
+import { ProviderRateModel } from './ProviderRate';
+
 export const LoanProviderType = new GraphQLObjectType({
     name: 'Provider',
     fields: {
@@ -42,6 +44,34 @@ const loanProviderSchema = new mongoose.Schema({
         }
     }
 });
+
+loanProviderSchema.methods = {
+    /**
+     * Update provider rating.
+     * @async
+     */
+    updateRate: async function() {
+        const providerRates = await ProviderRateModel.aggregate([
+            { $match: {
+                providerId: this._id
+            }},
+            {
+                $group: {
+                    _id: '$providerId',
+                    rate: { $sum: '$rate' },
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        const { rate, count } = providerRates[0];
+        const providerRating = rate / count;
+
+        this.rating.votes = count;
+        this.rating.rate = providerRating.toFixed(2);
+        return await this.save();
+    }
+};
 
 loanProviderSchema.statics = {
     /**

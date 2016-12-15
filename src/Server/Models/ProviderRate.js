@@ -6,6 +6,26 @@
  */
 
 import mongoose from 'mongoose';
+import {
+    GraphQLNonNull,
+    GraphQLString,
+    GraphQLFloat,
+    GraphQLInputObjectType
+} from 'graphql';
+
+export const ProviderRateInput = new GraphQLInputObjectType({
+    name: 'ProviderRateInput',
+    fields: {
+        id: {
+            type: new GraphQLNonNull(GraphQLString),
+            description: 'Provider identifier'
+        },
+        rate: {
+            type: new GraphQLNonNull(GraphQLFloat),
+            description: 'Rating'
+        }
+    }
+});
 
 const providerRateSchema = new mongoose.Schema({
     rate: Number,

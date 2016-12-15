@@ -15,24 +15,33 @@ import {
     LoanProviderType,
     LoanProviderModel
 } from '../Models/LoanProvider';
-import { ProviderRateModel } from '../Models/ProviderRate';
+
+import {
+    ProviderRateModel,
+    ProviderRateInput
+} from '../Models/ProviderRate';
 
 export default {
     rateProvider: {
-        type: GraphQLBoolean,
+        type: LoanProviderType,
         args: {
-            id: {
-                type: new GraphQLNonNull(GraphQLString),
-                description: 'Provider identifier'
-            },
-            rate: {
-                type: new GraphQLNonNull(GraphQLFloat),
-                description: 'Rating'
+            data: {
+                type: new GraphQLNonNull(ProviderRateInput),
+                description: 'Provider rate input'
             }
         },
-        resolve(root, params, options) {
-            const { id, rate } = params;
-            return true;
+        async resolve(root, params, options) {
+            const { id, rate } = params.data;
+            const rateModel = new ProviderRateModel({
+                providerId: id,
+                rate
+            });
+
+            const model = await rateModel.save();
+            const providerModel = await LoanProviderModel.getById(id);
+            const updatedModel = await providerModel.updateRate();
+            
+            return updatedModel;
         }
     }
 };

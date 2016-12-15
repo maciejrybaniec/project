@@ -1,16 +1,21 @@
 type Mutation {
   rateProvider(
-    # Provider identifier
-    id: String!
-
-    # Rating
-    rate: Float!
-  ): Boolean
+    # Provider rate input
+    data: ProviderRateInput!
+  ): Provider
 }
 
 type Provider {
   id: String
   name: String
+}
+
+input ProviderRateInput {
+  # Provider identifier
+  id: String!
+
+  # Rating
+  rate: Float!
 }
 
 type Query {
