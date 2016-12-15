@@ -9,16 +9,27 @@ import mongoose from 'mongoose';
 import {
     GraphQLObjectType,
     GraphQLList,
+    GraphQLInt,
+    GraphQLFloat,
     GraphQLString
 } from 'graphql';
 
 import { ProviderRateModel } from './ProviderRate';
 
+export const LoanProviderRateType = new GraphQLObjectType({
+    name: 'Rating',
+    fields: {
+        rate: { type: GraphQLFloat },
+        votes: { type: GraphQLInt }
+    }
+});
+
 export const LoanProviderType = new GraphQLObjectType({
     name: 'Provider',
     fields: {
         id: { type: GraphQLString },
-        name: { type: GraphQLString }
+        name: { type: GraphQLString },
+        rating: { type: LoanProviderRateType }
     }
 });
 

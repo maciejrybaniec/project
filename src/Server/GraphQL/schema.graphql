@@ -8,6 +8,7 @@ type Mutation {
 type Provider {
   id: String
   name: String
+  rating: Rating
 }
 
 input ProviderRateInput {
@@ -20,4 +21,9 @@ input ProviderRateInput {
 
 type Query {
   loanProvider(id: String, slug: String): Provider
+}
+
+type Rating {
+  rate: Float
+  votes: Int
 }
