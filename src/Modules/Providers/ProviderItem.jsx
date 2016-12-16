@@ -34,6 +34,7 @@ class ProviderItem extends PureComponent {
                     {provider.name}
                 </h4>
                 <ProviderVote
+                    providerId={provider.id}
                     rate={rate}
                     votes={votes}
                 />

@@ -15,6 +15,19 @@ type PropsType = {
     votes: Number
 };
 
+const rateProvider = gql`
+    mutation RateProvider($data: ProviderRateInput!) {
+        rateProvider(data: $data) {
+            id
+            rating {
+                rate
+                votes
+            }
+        }
+    }
+`;
+
+@graphql(rateProvider)
 class ProviderVote extends Component {
     /**
     * Set properties validation for component.
@@ -33,6 +46,7 @@ class ProviderVote extends Component {
     render(): React.Element<*> {
         const { formRate } = this.state;
         const { rate, votes } = this.props;
+                                    
         return (
             <div className="ProviderVote">
                 <div className="ProviderVote__rating">
@@ -48,9 +62,18 @@ class ProviderVote extends Component {
                         <option value="3">3</option>
                         <option value="4">4</option>
                     </select>
+                    <button onClick={this._rateProvider}>
+                        Vote
+                    </button>
                 </div>
             </div>
         );
+    }
+    @autobind
+    _rateProvider() {
+        const { formRate } = this.state;
+        const { mutate, providerId } = this.props;
+        mutate({ variables: { data: { id: providerId, rate: formRate } } });
     }
     @autobind
     _onSetVoteRate(event) {
