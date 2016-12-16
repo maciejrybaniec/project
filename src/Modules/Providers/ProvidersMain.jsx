@@ -6,14 +6,23 @@
  */
 
 import React, { PureComponent } from 'react';
+import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-import providersListQuery from 'Queries/providersList.graphql';
 import ProviderItem from 'Modules/Providers/ProviderItem';
 
 type PropsType = {};
 
-@graphql(providersListQuery)
+const ProviderListQuery = gql`
+    query LoanProvidersList {
+      loanProviders {
+        ...ProviderItem
+      }
+    }
+    ${ProviderItem.fragments.loanProvider}
+`;
+
+@graphql(ProviderListQuery)
 class ProvidersMain extends PureComponent {
     /**
     * Set properties validation for component.
@@ -36,7 +45,7 @@ class ProvidersMain extends PureComponent {
                         {loanProviders.map((provider): React.Element<*> => {
                             return (
                                 <ProviderItem
-                                    providerId={provider.id}
+                                    provider={provider}
                                     key={provider.id}
                                 />
                             );

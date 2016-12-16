@@ -4,6 +4,6 @@ fragment ProviderParts on Provider {
 
 query LoanProvidersList {
   loanProviders {
-    ...ProviderParts
+    id
   }
 }

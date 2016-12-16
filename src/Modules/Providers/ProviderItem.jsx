@@ -7,16 +7,14 @@
 
 import React, { PureComponent } from 'react';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 
 import providerItemQuery from 'Queries/providerItem.graphql';
 import ProviderVote from 'Modules/Providers/Components/ProviderVote';
 
 type PropsType = {};
 
-@graphql(providerItemQuery, {
-    options: ({ providerId }) => ({ variables: { id: providerId } })
-})
+@withApollo
 class ProviderItem extends PureComponent {
     /**
     * Set properties validation for component.
@@ -27,29 +25,18 @@ class ProviderItem extends PureComponent {
      * @returns {ReactElement}
      */
     render(): React.Element<*> {
-        const { loading, loanProvider } = this.props.data;
-        const { providerId } = this.props;
+        const { provider } = this.props;
+        const { rate, votes } = provider.rating;
 
         return (
             <div className="ProviderItem">
-                { (loading ? (
-                    <span className="ProviderItem__loader">
-                        Loading...
-                    </span>
-                ):
-                    <div className="ProviderItem__details">
-                        <h4 className="ProviderItem__name">
-                            {loanProvider.name}
-                        </h4>
-                        <div className="ProviderItem__rating">
-                            {loanProvider.rating.rate}
-                        </div>
-                        <div className="ProviderItem__votes">
-                            {loanProvider.rating.votes}
-                        </div>
-                    </div>
-                )}
-                <ProviderVote />
+                <h4 className="ProviderItem__name">
+                    {provider.name}
+                </h4>
+                <ProviderVote
+                    rate={rate}
+                    votes={votes}
+                />
             </div>
         );
     }
@@ -57,9 +44,12 @@ class ProviderItem extends PureComponent {
 
 ProviderItem.fragments = {
     loanProvider: gql`
-        fragment ProviderItemDetails on Provider {
+        fragment ProviderItem on Provider {
+            id
             name
+            ...ProviderVote
         }
+        ${ProviderVote.fragments.loanProvider}
     `
 };
 
