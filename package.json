@@ -5,6 +5,7 @@
     "main": "app.js",
     "scripts": {
         "development": "gulp development:back-end",
+        "flow": "flow check",
         "test": "jest"
     },
     "author": "maciej.rybaniec@gmail.com",

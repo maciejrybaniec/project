@@ -12,7 +12,9 @@ import React, { PureComponent } from 'react';
 import { loginUser } from 'Actions/ActionCreators';
 import InputControl from 'Modules/Forms/Components/InputControl';
 
-type PropsType = {};
+type PropsType = {
+    loginUser?: (username: string, password: string) => Object
+};
 
 type StateType = {
     username: string,
@@ -79,7 +81,7 @@ class Login extends PureComponent {
     _onFormSubmit() {
         const { loginUser } = this.props;
         const { username, password } = this.state;
-        loginUser(username, password);
+        if (loginUser) loginUser(username, password);
     }
     @autobind
     /**
