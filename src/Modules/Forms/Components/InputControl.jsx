@@ -27,14 +27,17 @@ class InputControl extends PureComponent {
     static defaultProps = {
         type: 'text'
     };
+    constructor(props: PropsType) {
+        super(props);
+    }
     /**
      * Render component in DOM.
      * @returns {ReactElement}
      */
     render(): React.Element<*> {
-        const { type } = this.props
+        const { type, name } = this.props
         return (
-            <input type={type} onChange={this._onChange} />
+            <input name={name} type={type} onChange={this._onChange} />
         );
     }
     /**
