@@ -21,6 +21,10 @@ import {
 
 
 import Main from 'Modules/Main';
+import { ApolloProvider } from 'react-apollo'
+import Store from 'Store/createStore';
+import ApolloClient from 'Apollo/Client';
+import ProvidersMain from 'Modules/Providers/ProvidersMain';
 
 const Router = express.Router();
 
@@ -30,7 +34,11 @@ Passport.deserializeUser((user, done) => { done(null, user); });
 
 Router.get('/page', (req, res) => {
     const html = ReactServerDOM.renderToString(
-        <Main />
+         <ApolloProvider client={ApolloClient} store={Store}>
+        <Main>
+          <ProvidersMain />
+        </Main>
+        </ApolloProvider>
     );
 
     res.status(200);

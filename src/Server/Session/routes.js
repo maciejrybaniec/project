@@ -7,6 +7,7 @@
 
 import React from 'react';
 import ReactServerDOM from 'react-dom/server';
+import { ApolloProvider } from 'react-apollo'
 
 import Main from 'Modules/Main';
 import Login from 'Modules/Authorization/Login';
@@ -14,6 +15,8 @@ import Login from 'Modules/Authorization/Login';
 import { createUserValidator } from 'Server/Session/validators';
 import { createUser } from 'Server/Session/handlers';
 import PageRender from 'Server/PageRender';
+import Store from 'Store/createStore';
+import ApolloClient from 'Apollo/Client';
 
 /**
  * Create application user.
@@ -46,9 +49,11 @@ export async function createUserRoute(request: Object, response: Object) {
  */
 export function renderLoginRoute(request: Object, response: Object) {
     const html = ReactServerDOM.renderToString(
-        <Main>
-          <Login />
-        </Main>
+        <ApolloProvider client={ApolloClient} store={Store}>
+            <Main>
+                <Login />
+            </Main>
+        </ApolloProvider>
     );
 
     response.status(200);

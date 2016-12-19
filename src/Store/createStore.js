@@ -11,12 +11,14 @@ import {
     combineReducers
 } from 'redux';
 
+import rootReducer from 'Reducers/rootReducer';
 import ApolloClient from 'Apollo/Client';
 
 const configureStore = () => {
     return createStore(
         combineReducers({
-            apollo: ApolloClient.reducer()
+            apollo: ApolloClient.reducer(),
+            ...rootReducer
         }),
         applyMiddleware(
             ApolloClient.middleware()

@@ -6,8 +6,10 @@
  */
 
 import autobind from 'autobind-decorator';
+import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 
+import { loginUser } from 'Actions/ActionCreators';
 import InputControl from 'Modules/Forms/Components/InputControl';
 
 type PropsType = {};
@@ -17,6 +19,15 @@ type StateType = {
     password: string
 }
 
+const mapStateToProps = (state) => {
+    return {};
+}
+
+const mapDispatchToProps = {
+    loginUser
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Login extends PureComponent {
     /**
     * Set properties validation for component.
@@ -53,10 +64,30 @@ class Login extends PureComponent {
                     onChange={this._onChange}
                     type="password"
                 />
+                <button type="button" onClick={this._onFormSubmit}>
+                    Login
+                </button>
             </div>
         );
     }
+    /**
+     * Submit login form event handler.
+     * @dispatch loginUser
+     * @private
+     */
     @autobind
+    _onFormSubmit() {
+        const { loginUser } = this.props;
+        const { username, password } = this.state;
+        loginUser(username, password);
+    }
+    @autobind
+    /**
+     * Render component in DOM.
+     * @param {string} name Field name.
+     * @param {string} value Field value.
+     * @private
+     */
     _onChange(name: string, value: string) {
         const state = {};
         state[name] = value;
