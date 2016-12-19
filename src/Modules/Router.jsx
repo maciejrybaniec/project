@@ -9,10 +9,13 @@ import React from 'react';
 import { Route } from 'react-router';
 
 import Main from 'Modules/Main';
+import Login from 'Modules/Authorization/Login';
+
 import ProvidersMain from 'Modules/Providers/ProvidersMain';
 
 export default (
      <Route path="/" component={Main}>
          <Route path="page" component={ProvidersMain} />
+         <Route path="login" component={Login} />
      </Route>
 );

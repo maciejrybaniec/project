@@ -12,7 +12,13 @@ import { graphql } from 'react-apollo';
 
 type PropsType = {
     rate: Number,
-    votes: Number
+    votes: Number,
+    providerId: string,
+    mutate?: (settings: Object) => void
+};
+
+type StateType = {
+    formRate: number
 };
 
 const rateProvider = gql`
@@ -33,6 +39,23 @@ class ProviderVote extends Component {
     * Set properties validation for component.
     */
     props: PropsType
+    /**
+    * Set state validation for component.
+    */
+    state: StateType
+    /**
+    * Apollo query fragments.
+    */
+    static fragments = {
+        loanProvider: gql`
+            fragment ProviderVote on Provider {
+                rating {
+                    rate
+                    votes
+                }
+            }
+        `
+    };
     constructor(props: PropsType) {
         super(props);
         this.state = {
@@ -46,7 +69,7 @@ class ProviderVote extends Component {
     render(): React.Element<*> {
         const { formRate } = this.state;
         const { rate, votes } = this.props;
-                                    
+
         return (
             <div className="ProviderVote">
                 <div className="ProviderVote__rating">
@@ -73,25 +96,17 @@ class ProviderVote extends Component {
     _rateProvider() {
         const { formRate } = this.state;
         const { mutate, providerId } = this.props;
-        mutate({ variables: { data: { id: providerId, rate: formRate } } });
+        if (mutate && typeof mutate === 'function') {
+            mutate({ variables: { data: { id: providerId, rate: formRate } } });
+        }
     }
     @autobind
-    _onSetVoteRate(event) {
-        this.setState({
-            formRate: Number(event.target.value)
-        });
+    _onSetVoteRate(event: SyntheticEvent) {
+        if (event.target instanceof HTMLSelectElement) {
+            const rate = Number(event.target.value);
+            this.setState({ formRate: rate });
+        }
     }
 }
 
-ProviderVote.fragments = {
-    loanProvider: gql`
-        fragment ProviderVote on Provider {
-            rating {
-                rate
-                votes
-            }
-        }
-    `
-};
-
- export default ProviderVote;
+export default ProviderVote;

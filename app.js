@@ -5,9 +5,12 @@
 
 import express from 'express';
 import expressGraphQL from 'express-graphql';
+import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import passport from 'passport';
 import path from 'path';
+import session from 'express-session';
 import webpack from 'webpack';
 
 import Router from 'Server/Router';
@@ -38,6 +41,11 @@ const staticPath = isProduction ? path.join(__dirname, 'assets') :
     path.join(__dirname, 'dist', 'assets');
 
 app.use(express.static(staticPath));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session({ secret: 'app_secret' }));
 app.use('/', Router);
 
 app.use('/graphql', expressGraphQL({

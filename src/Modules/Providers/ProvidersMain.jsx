@@ -11,7 +11,9 @@ import { graphql } from 'react-apollo';
 
 import ProviderItem from 'Modules/Providers/ProviderItem';
 
-type PropsType = {};
+type PropsType = {
+    data: Object
+};
 
 const ProviderListQuery = gql`
     query LoanProvidersList {
@@ -28,6 +30,7 @@ class ProvidersMain extends PureComponent {
     * Set properties validation for component.
     */
     props: PropsType
+    static fragments: Object
     /**
      * Render component in DOM.
      * @returns {ReactElement}

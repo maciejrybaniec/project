@@ -9,10 +9,11 @@ import React, { PureComponent } from 'react';
 import gql from 'graphql-tag';
 import { withApollo } from 'react-apollo';
 
-import providerItemQuery from 'Queries/providerItem.graphql';
 import ProviderVote from 'Modules/Providers/Components/ProviderVote';
 
-type PropsType = {};
+type PropsType = {
+    provider: Object
+};
 
 @withApollo
 class ProviderItem extends PureComponent {
@@ -20,6 +21,19 @@ class ProviderItem extends PureComponent {
     * Set properties validation for component.
     */
     props: PropsType
+    /**
+    * Apollo query fragments.
+    */
+    static fragments = {
+        loanProvider: gql`
+            fragment ProviderItem on Provider {
+                id
+                name
+                ...ProviderVote
+            }
+            ${ProviderVote.fragments.loanProvider}
+        `
+    };
     /**
      * Render component in DOM.
      * @returns {ReactElement}
@@ -43,15 +57,4 @@ class ProviderItem extends PureComponent {
     }
 }
 
-ProviderItem.fragments = {
-    loanProvider: gql`
-        fragment ProviderItem on Provider {
-            id
-            name
-            ...ProviderVote
-        }
-        ${ProviderVote.fragments.loanProvider}
-    `
-};
-
- export default ProviderItem;
+export default ProviderItem;

@@ -19,7 +19,6 @@ class Navbar extends PureComponent {
      * @returns {ReactElement}
      */
     render(): React.Element<*> {
-        const { children } = this.props
         return (
             <nav className="Navbar">
                 Navigation
