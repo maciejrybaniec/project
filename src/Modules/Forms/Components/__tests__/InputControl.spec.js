@@ -13,6 +13,11 @@ import InputControl from 'Modules/Forms/Components/InputControl';
 
 describe('<InputControl />', () => {
 
+    it('should render <InputControl /> component correctly', () => {
+        const tree = Renderer.create(<InputControl name="login" type="text" />).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
     it('should set input control name', () => {
         const inputName = 'login';
         const wrapper = mount(<InputControl name={inputName} />);

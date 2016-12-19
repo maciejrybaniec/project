@@ -1,0 +1,6 @@
+exports[`<InputControl /> should render <InputControl /> component correctly 1`] = `
+<input
+  name="login"
+  onChange={[Function]}
+  type="text" />
+`;
