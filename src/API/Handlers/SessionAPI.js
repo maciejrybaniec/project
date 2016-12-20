@@ -12,3 +12,7 @@ export function authorizeUser(username: string, password: string): Promise<*> {
         password
     });
 }
+
+export default {
+    authorizeUser
+};
