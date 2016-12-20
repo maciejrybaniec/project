@@ -6,19 +6,17 @@
 
 import React from 'react';
 import ReactServerDOM from 'react-dom/server';
-import Passport from 'passport';
-import { Strategy } from 'passport-local';
+import authorization from 'connect-ensure-login';
+import passport from 'passport';
 import express from 'express';
 
 import PageRender from 'Server/PageRender';
-import { authenticate } from 'Server/Session/handlers';
 
 import {
     createUserRoute,
     renderLoginRoute,
     loginUserRoute
 } from 'Server/Session/routes';
-
 
 import Main from 'Modules/Main';
 import { ApolloProvider } from 'react-apollo'
@@ -28,11 +26,7 @@ import ProvidersMain from 'Modules/Providers/ProvidersMain';
 
 const Router = express.Router();
 
-Passport.use(new Strategy({ session: true }, authenticate));
-Passport.serializeUser((user, done) => { done(null, user); });
-Passport.deserializeUser((user, done) => { done(null, user); });
-
-Router.get('/page', (req, res) => {
+Router.get('/page', authorization.ensureLoggedIn(), (req, res) => {
     const html = ReactServerDOM.renderToString(
          <ApolloProvider client={ApolloClient} store={Store}>
         <Main>
@@ -45,12 +39,12 @@ Router.get('/page', (req, res) => {
     res.send(PageRender(html));
 });
 
+/* Application Routes */
 Router.post('/signup', createUserRoute);
-
 Router.get('/login', renderLoginRoute);
-Router.post('/api/login', Passport.authenticate('local'), loginUserRoute);
 
-
+/* REST API */
+Router.post('/api/login', passport.authenticate('local'), loginUserRoute);
 
 
 export default Router;

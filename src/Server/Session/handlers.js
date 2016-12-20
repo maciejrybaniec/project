@@ -9,6 +9,30 @@ import bcrypt from 'bcrypt-nodejs';
 
 import { UserModel } from 'Server/Models/User';
 
+/**
+ * Serialize user into session object.
+ * @method serializeUser
+ * @param {object} user User object.
+ * @param {function} done Sucess callback.
+ */
+export function serializeUser(user, done) {
+    done(null, user.id);
+}
+
+/**
+ * Deserialize user based on session object.
+ * @method deserializeUser
+ * @param {string} id User identifier.
+ * @param {function} done Sucess callback.
+ */
+export function deserializeUser(id, done) {
+    console.log('deserialize', id);
+    UserModel.findById(id, (error, user) => {
+        if (error) return done(error);
+        done(null, user);
+    });
+}
+
  /**
   * Create application user.
   * @method createUser
