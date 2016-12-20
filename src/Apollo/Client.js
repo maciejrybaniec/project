@@ -13,7 +13,7 @@ import ApolloClient, {
 import config from '../../config';
 
 const networkInterface = createNetworkInterface({
-    uri: config.apiURL
+    uri: `${config.apiURL}/graphql`
 });
 
 export default new ApolloClient({

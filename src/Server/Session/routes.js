@@ -14,6 +14,7 @@ import Login from 'Modules/Authorization/Login';
 
 import { createUserValidator } from 'Server/Session/validators';
 import { createUser } from 'Server/Session/handlers';
+import { UserModel } from 'Server/Models/User';
 import PageRender from 'Server/PageRender';
 import Store from 'Store/createStore';
 import ApolloClient from 'Apollo/Client';
@@ -68,6 +69,9 @@ export function renderLoginRoute(request: Object, response: Object) {
  * @async
  */
 export async function loginUserRoute(request: Object, response: Object) {
+    const { username } = request.body;
+    const user = await UserModel.findOne({ username }, 'username');
+
     response.status(200);
-    response.json({});
+    response.json(user);
 };

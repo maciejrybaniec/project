@@ -48,7 +48,7 @@ Router.get('/page', (req, res) => {
 Router.post('/signup', createUserRoute);
 
 Router.get('/login', renderLoginRoute);
-Router.post('/login', Passport.authenticate('local'), loginUserRoute);
+Router.post('/api/login', Passport.authenticate('local'), loginUserRoute);
 
 
 
