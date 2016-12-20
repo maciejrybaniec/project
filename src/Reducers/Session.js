@@ -11,6 +11,7 @@ const initialState = {
 }
 
 function user(state = initialState.user, action) {
+    console.log('CALLEd', action);
     return state;
 }
 
