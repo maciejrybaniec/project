@@ -15,7 +15,7 @@ import { UserModel } from 'Server/Models/User';
  * @param {object} user User object.
  * @param {function} done Sucess callback.
  */
-export function serializeUser(user, done) {
+export function serializeUser(user: Object, done: Function) {
     done(null, user.id);
 }
 
@@ -25,8 +25,7 @@ export function serializeUser(user, done) {
  * @param {string} id User identifier.
  * @param {function} done Sucess callback.
  */
-export function deserializeUser(id, done) {
-    console.log('deserialize', id);
+export function deserializeUser(id: string, done: Function) {
     UserModel.findById(id, (error, user) => {
         if (error) return done(error);
         done(null, user);
