@@ -3,7 +3,36 @@ exports[`<Main /> should render <Main /> component correctly 1`] = `
   className="Main">
   <nav
     className="Navbar">
-    Navigation
+    <div
+      className="Navigation__wrapper Container">
+      <div
+        className="Navbar__company">
+        <img
+          className="Navbar__company-image"
+          src="/img/logo.png" />
+      </div>
+      <ul
+        className="Navbar__menu">
+        <li
+          className="Navbar__menu__item">
+          <a
+            className="Navbar__menu-link"
+            onClick={[Function]}
+            style={Object {}}>
+            O nas
+          </a>
+        </li>
+        <li
+          className="Navbar__menu__item">
+          <a
+            className="Navbar__menu-link"
+            onClick={[Function]}
+            style={Object {}}>
+            Regulamin
+          </a>
+        </li>
+      </ul>
+    </div>
   </nav>
   <div
     className="Main__content" />

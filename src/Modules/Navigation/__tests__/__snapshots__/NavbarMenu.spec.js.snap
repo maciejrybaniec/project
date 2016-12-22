@@ -1,0 +1,23 @@
+exports[`<NavbarMenu /> should render <NavbarMenu /> component correctly 1`] = `
+<ul
+  className="">
+  <li
+    className="undefined__item">
+    <a
+      className="undefined-link"
+      onClick={[Function]}
+      style={Object {}}>
+      O nas
+    </a>
+  </li>
+  <li
+    className="undefined__item">
+    <a
+      className="undefined-link"
+      onClick={[Function]}
+      style={Object {}}>
+      Regulamin
+    </a>
+  </li>
+</ul>
+`;

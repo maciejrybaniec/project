@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 import gulpLess from 'gulp-less';
+import gulpCopy from 'gulp-copy';
 import gutil from 'gulp-util';
 import babel from 'gulp-babel';
 
@@ -73,6 +74,18 @@ gulp.task('enviroment:production', (done) => {
 gulp.task('update:schema', (done) => {
     updateSchema();
     done();
+});
+
+/**
+ * Copy project assets.
+ */
+gulp.task('copy:assets', () => {
+    const source = [
+        path.join(__dirname, 'assets', 'img/*'),
+        path.join(__dirname, 'assets', 'fonts/*')
+    ];
+    const dest = path.join(__dirname, 'dist');
+    return gulp.src(source).pipe(gulpCopy(dest));
 });
 
 /**
