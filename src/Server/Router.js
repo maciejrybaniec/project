@@ -15,6 +15,7 @@ import PageRender from 'Server/PageRender';
 import {
     createUserRoute,
     renderLoginRoute,
+    renderIndexRoute,
     loginUserRoute
 } from 'Server/Session/routes';
 
@@ -40,6 +41,7 @@ Router.get('/page', authorization.ensureLoggedIn(), (req, res) => {
 });
 
 /* Application Routes */
+Router.get('/', renderIndexRoute);
 Router.post('/signup', createUserRoute);
 Router.get('/login', renderLoginRoute);
 

@@ -4,6 +4,8 @@
  * @copyright (c) 2016-present maciej.rybaniec@gmail.com
  */
 
+jest.mock('API/Handlers/SessionAPI');
+
 import { call, put } from 'redux-saga/effects';
 import deepEqual from 'deep-equal';
 
@@ -14,8 +16,6 @@ import {
     loginUserFailed
 } from 'Actions/ActionCreators';
 import * as types from 'Constants/ActionTypes';
-
-jest.mock('API/Handlers/SessionAPI');
 import SessionAPI from 'API/Handlers/SessionAPI';
 
 describe('loginUser', () => {

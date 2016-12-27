@@ -5,7 +5,9 @@
  */
 
 import session from 'Reducers/Session';
+import search from 'Reducers/Search';
 
 export default {
-    session
+    session,
+    search
 };

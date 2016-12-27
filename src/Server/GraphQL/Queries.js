@@ -6,6 +6,8 @@
 
  import {
    GraphQLString,
+   GraphQLInt,
+   GraphQLNonNull,
    GraphQLList
  } from 'graphql';
 
@@ -13,6 +15,11 @@ import {
     LoanProviderType,
     LoanProviderModel
 } from '../Models/LoanProvider';
+
+import {
+    LoanModel,
+    LoanType
+} from '../Models/Loan';
 
 export default {
     loanProvider: {
@@ -31,6 +38,17 @@ export default {
         type: new GraphQLList(LoanProviderType),
         resolve(root, params, options) {
             return LoanProviderModel.find().exec();
+        }
+    },
+    loans: {
+        type: new GraphQLList(LoanType),
+        args: {
+            days: { type: new GraphQLNonNull(GraphQLInt) },
+            value: { type: new GraphQLNonNull(GraphQLInt) }
+        },
+        async resolve(root, params, options) {
+            const models = await LoanModel.find();
+            return models;
         }
     }
 };

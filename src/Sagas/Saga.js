@@ -8,7 +8,10 @@ import { put, call } from 'redux-saga/effects';
 import { takeEvery, takeLatest, delay } from 'redux-saga';
 
 import * as types from 'Constants/ActionTypes';
+import LoanSearch from '../Queries/loanSearch.graphql';
+
 import SessionAPI from 'API/Handlers/SessionAPI';
+import ApolloClient from 'Apollo/Client';
 
 /**
  * Login user saga.
@@ -26,10 +29,43 @@ export function *loginUser(action) {
     }
 }
 
+/**
+ * Search loan based on provided params.
+ * @method searchLoan
+ * @param {object} action Redux action object.
+ * @async
+ */
+export function *searchLoan(action) {
+    try {
+        const { days, value } = action.data;
+        yield put({ type: types.SET_SEARCH_STATUS, data: { loadingState: true } });
+
+        const searchResult = yield ApolloClient.query({
+            query: LoanSearch,
+            variables: {
+                days,
+                value
+            }
+        });
+
+        const { loans } = searchResult.data;
+        const loansIdentifiers = loans.map((loan) => {
+            return loan.id;
+        });
+
+        yield put({ type: types.SET_SEARCH_STATUS, data: { loadingState: false } });
+        yield put({ type: types.SEARCH_LOAN_SUCCESS, data: { loans: loansIdentifiers } });
+
+    } catch (err) {
+        yield put({ type: types.SEARCH_LOAN_FAILED });
+    }
+}
+
  /**
   * Root saga method.
   * @method rootSaga
   */
  export default function* rootSaga() {
      yield takeLatest(types.LOGIN_USER, loginUser);
+     yield takeLatest(types.SEARCH_LOAN, searchLoan);
  }

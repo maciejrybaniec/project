@@ -10,6 +10,7 @@ import ReactServerDOM from 'react-dom/server';
 import { ApolloProvider } from 'react-apollo'
 
 import Main from 'Modules/Main';
+import CompareRoot from 'Modules/Compare/CompareRoot';
 import Login from 'Modules/Authorization/Login';
 
 import { createUserValidator } from 'Server/Session/validators';
@@ -53,6 +54,28 @@ export function renderLoginRoute(request: Object, response: Object) {
         <ApolloProvider client={ApolloClient} store={Store}>
             <Main>
                 <Login />
+            </Main>
+        </ApolloProvider>
+    );
+
+    response.status(200);
+    response.send(PageRender(html));
+};
+
+/**
+ * Render application index route.
+ * @method renderIndexRoute
+ * @param {object} request HTTP request object
+ * @param {object} response HTTP response object
+ * @async
+ */
+export function renderIndexRoute(request: Object, response: Object) {
+    const html = ReactServerDOM.renderToString(
+        <ApolloProvider client={ApolloClient} store={Store}>
+            <Main>
+                <CompareRoot
+                    searchLoading={false}
+                />
             </Main>
         </ApolloProvider>
     );

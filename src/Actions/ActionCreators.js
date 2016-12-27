@@ -34,3 +34,22 @@
          }
      }
  };
+
+ export const setSearchLoadingState = (loadingState: boolean) => {
+     return {
+        type: types.SET_SEARCH_STATUS,
+        data: {
+            loadingState
+        }
+     }
+ };
+
+ export const searchLoan = (value: number, days: number) => {
+    return {
+        type: types.SEARCH_LOAN,
+        data: {
+            value,
+            days
+        }
+    }
+ };
