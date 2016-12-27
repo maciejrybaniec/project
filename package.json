@@ -18,6 +18,7 @@
         "deep-equal": "^1.0.1",
         "express": "^4.14.0",
         "express-session": "^1.14.2",
+        "immutable": "^3.8.1",
         "passport": "^0.3.2",
         "passport-http": "^0.3.0",
         "passport-local": "^1.0.0",
@@ -91,6 +92,7 @@
             "<rootDir>/src/"
         ],
         "moduleFileExtensions": [
+            "graphql",
             "js",
             "jsx",
             "json"
@@ -100,6 +102,11 @@
             "enzyme",
             "jasmine-enzyme"
         ],
+        "transform": {
+            "[a-zA-Z]*.graphql$": "<rootDir>/jestPreprocessor.js",
+            "[a-zA-Z]*.js$": "<rootDir>/node_modules/babel-jest",
+            "": "<rootDir>/node_modules/babel-jest"
+        },
         "testPathIgnorePatterns": [
             "./node_modules/"
         ]
