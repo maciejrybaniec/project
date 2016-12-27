@@ -9,12 +9,12 @@ import { combineReducers } from 'redux';
 
 import * as types from 'Constants/ActionTypes';
 
-const initialState = {
+export const initialState = {
     loading: false,
     loans: []
 }
 
-function loading(state = initialState.loading, action) {
+export function loading(state = initialState.loading, action = {}) {
     switch (action.type) {
         case types.SET_SEARCH_STATUS:
             const { loadingState } = action.data;
@@ -25,7 +25,7 @@ function loading(state = initialState.loading, action) {
     }
 }
 
-function loans(state = initialState.loans, action) {
+export function loans(state = initialState.loans, action = {}) {
     switch (action.type) {
         case types.SEARCH_LOAN_SUCCESS:
             const { loans } = action.data;
