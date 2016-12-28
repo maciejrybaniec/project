@@ -48,8 +48,8 @@ export function *searchLoan(action) {
             }
         });
 
-        const { loans } = searchResult.data;
-        const loansIdentifiers = loans.map((loan) => {
+        const { searchLoans } = searchResult.data;
+        const loansIdentifiers = searchLoans.map((loan) => {
             return loan.id;
         });
 

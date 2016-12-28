@@ -28,7 +28,8 @@ input ProviderRateInput {
 type Query {
   loanProvider(id: String, slug: String): Provider
   loanProviders: [Provider]
-  loans(days: Int!, value: Int!): [Loan]
+  loan(id: String!): Loan
+  searchLoans(days: Int!, value: Int!): [Loan]
 }
 
 type Rating {

@@ -40,7 +40,18 @@ export default {
             return LoanProviderModel.find().exec();
         }
     },
-    loans: {
+    loan: {
+        type: LoanType,
+        args: {
+            id: { type: new GraphQLNonNull(GraphQLString) }
+        },
+        async resolve(root, params, options) {
+            const { id } = params;
+            const model = await LoanModel.findById(id);
+            return model;
+        }    
+    },
+    searchLoans: {
         type: new GraphQLList(LoanType),
         args: {
             days: { type: new GraphQLNonNull(GraphQLInt) },

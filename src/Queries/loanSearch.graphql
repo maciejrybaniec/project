@@ -1,10 +1,6 @@
 query LoanSearch($days: Int!, $value: Int!) {
-    loans(days: $days, value: $value) {
+    searchLoans(days: $days, value: $value) {
         id,
-        commission,
-        provider {
-            id,
-            name
-        }
+        commission
     }
 }

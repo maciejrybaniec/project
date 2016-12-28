@@ -71,7 +71,9 @@ class CompareRoot extends PureComponent {
                    searchLoan={searchLoan}
                 />
                 <div className="CompareRoot__loan-list">
-                    <LoanList loans={loans} />
+                    { (loans.size > 0 ? (
+                        <LoanList loans={loans} />
+                    ): null )}
                 </div>
             </section>
         );

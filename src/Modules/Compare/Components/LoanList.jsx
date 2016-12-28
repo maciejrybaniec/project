@@ -8,6 +8,8 @@
 import React, { PureComponent } from 'react';
 import { List } from 'immutable';
 
+import LoanItem from 'Modules/Compare/Components/LoanItem';
+
 type PropsType = {
     loans: List<string>
 };
@@ -22,9 +24,17 @@ class LoanList extends PureComponent {
      * @returns {ReactElement}
      */
     render(): React.Element<*> {
+        const { loans } = this.props;
         return (
             <ul className="LoanList">
-                Loan list
+                {loans.toJS().map((loanId: string) => {
+                    return (
+                        <LoanItem
+                            loanId={loanId}
+                            key={loanId}
+                        />
+                    );
+                })}
             </ul>
         );
     }
