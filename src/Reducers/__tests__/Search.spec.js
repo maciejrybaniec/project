@@ -47,7 +47,7 @@ describe('Search Reducer', () => {
             const action = {
                 type: types.SEARCH_LOAN_SUCCESS,
                 data: { loans: loanIdentifiers }
-            }
+            };
 
             const reducerValue = loans(
                 initialState.loans,
@@ -56,6 +56,7 @@ describe('Search Reducer', () => {
 
             expect(reducerValue instanceof List).toBe(true);
             expect(reducerValue.size).toEqual(loanIdentifiers.length);
+            expect(deepEqual(reducerValue.toJS(), loanIdentifiers)).toBe(true);
         });
     });
 });
